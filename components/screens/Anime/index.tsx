@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { Breadcrumb, Button, Card, Col, Divider, Row, Statistic } from "antd";
+import { Breadcrumb, Card, Divider, Statistic } from "antd";
 import Image from "next/image";
 import Layout from "../../../components/layout";
 
 import Link from "next/link";
-import { useRouter } from "next/router";
-
-import { api } from "../../../utils/api";
 
 import styles from "./Anime.module.scss";
 import Head from "next/head";
