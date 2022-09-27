@@ -19,7 +19,7 @@ const Home = ({ trending }: { trending: IAnime[] }) => {
     <React.Fragment>
       <Head>
         <title>Anime List</title>
-        <meta name="description" content="Anime List" />
+        <meta name="description" content="Find your animes in one place!" />
         <meta name="og:description" content="Find your animes in one place!" />
         <meta name="og:title" content="Anime List" />
         <meta
