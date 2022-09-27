@@ -5,3 +5,11 @@
 
   grid-row-gap: 24px;
 }
+
+.searcResults {
+  display: flex;
+  align-items: center;
+  grid-gap: 16px;
+
+  flex-wrap: wrap;
+}

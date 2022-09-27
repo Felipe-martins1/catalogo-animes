@@ -31,11 +31,6 @@ const Hero = ({ anime }: Props) => {
           The best place to find your favorite anime. We have a hulection of
           anime, manga, and more.
         </Text>
-
-        <Input className={styles.searchInput} />
-        <Button type="primary" className={styles.searchButton}>
-          SEARCH
-        </Button>
       </div>
     </section>
   );

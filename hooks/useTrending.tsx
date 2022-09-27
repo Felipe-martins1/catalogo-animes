@@ -1,32 +1,34 @@
 import { useEffect, useState } from "react";
-import { BASE_API_URL } from "../constants";
+import { findTrendingAnimes } from "../services/animeService";
 
-import axios from "axios";
-
-type Props = {
-  type: "anime" | "manga";
-};
-
-export const useTrending = ({ type = "anime" }: Props) => {
+export const useTrending = () => {
   const [loading, setLoading] = useState(false);
   const [trending, setTrending] = useState<any[]>([]);
 
+  const fetchTrending = async () => {
+    setLoading(true);
+    try {
+      const { data } = await findTrendingAnimes();
+      setTrending(data || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchTrending = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axios.get(
-          `${BASE_API_URL}/edge/trending/${type}`
-        );
-        setTrending(data.data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchTrending();
   }, []);
 
-  return trending;
+  const formatedTrending = trending?.map((each) => ({
+    url: each.attributes.posterImage.small,
+    alt: each.attributes.canonicalTitle,
+    title: each.attributes.canonicalTitle,
+    slug: `${each.attributes.slug}-${each.id}`,
+    rating: each.attributes.averageRating,
+    ...each,
+  }));
+
+  return { loading, data: formatedTrending };
 };

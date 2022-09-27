@@ -1,0 +1,33 @@
+.cardContainer {
+  margin-top: 24px;
+
+  .meta {
+    margin-top: 16px;
+  }
+}
+
+.banner {
+  width: 100%;
+  position: relative;
+  height: 350px;
+
+  img {
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 200px;
+  }
+}
+
+.stats {
+  margin-top: 16px;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  grid-gap: 32px;
+}

@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  grid-row-gap: 8px;
+
+  margin-top: 24px;
+}
+
+.results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 16px;
+
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.loadMoreButton {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  align-self: center;
+
+  width: 100%;
+  max-width: 350px;
+}

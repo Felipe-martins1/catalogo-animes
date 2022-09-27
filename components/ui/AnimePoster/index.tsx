@@ -1,20 +1,29 @@
+import { Rate } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 
 import styles from "./AnimePoster.module.scss";
 
 type Props = {
   data: {
+    slug: string;
     url: string;
     alt: string;
     title: string;
+    rating: number;
   };
 };
 
 export const AnimePoster = ({ data }: Props) => {
+  const router = useRouter();
+
   return (
-    <React.Fragment>
-      <div className={styles.poster}>
+    <div>
+      <div
+        className={styles.poster}
+        onClick={() => router.push(`/anime/${data.slug}`)}
+      >
         <Image
           src={data.url}
           alt={data.alt}
@@ -25,6 +34,7 @@ export const AnimePoster = ({ data }: Props) => {
         />
         <h4>{data.title}</h4>
       </div>
-    </React.Fragment>
+      <Rate disabled value={(data.rating * 5) / 100} />
+    </div>
   );
 };
