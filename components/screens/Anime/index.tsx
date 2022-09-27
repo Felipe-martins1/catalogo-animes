@@ -31,14 +31,29 @@ const Anime = ({ anime }: { anime: IAnime }) => {
     }
   };
 
+  const { attributes, id } = anime || {};
+  const {
+    description,
+    canonicalTitle,
+    posterImage,
+    coverImage,
+    averageRating,
+    status,
+    synopsis,
+    startDate,
+    popularityRank,
+    ageRatingGuide,
+    youtubeVideoId,
+  } = attributes || {};
+
   return (
     <React.Fragment>
       <Head>
-        <title>{anime?.attributes?.canonicalTitle}</title>
-        <meta name="description" content={anime?.attributes?.description} />
-        <meta name="og:description" content={anime?.attributes?.description} />
-        <meta name="og:title" content={anime?.attributes?.canonicalTitle} />
-        <meta name="og:image" content={anime?.attributes?.posterImage?.large} />
+        <title>{canonicalTitle}</title>
+        <meta name="description" content={description} />
+        <meta name="og:description" content={description} />
+        <meta name="og:title" content={canonicalTitle} />
+        <meta name="og:image" content={posterImage?.large} />
       </Head>
 
       <Layout>
@@ -47,49 +62,46 @@ const Anime = ({ anime }: { anime: IAnime }) => {
             <Link href="/">Home</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>Anime</Breadcrumb.Item>
-          <Breadcrumb.Item>{anime?.attributes?.canonicalTitle}</Breadcrumb.Item>
+          <Breadcrumb.Item>{canonicalTitle}</Breadcrumb.Item>
         </Breadcrumb>
 
         <section className={styles.cardContainer}>
           <Card hoverable>
             <div className={styles.banner}>
-              <Image
-                alt={anime?.attributes?.canonicalTitle}
-                src={anime?.attributes?.coverImage?.original || ""}
-                layout="fill"
-                objectFit="cover"
-                quality={100}
-              />
+              {youtubeVideoId ? (
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                  title={canonicalTitle}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <Image
+                  alt={canonicalTitle}
+                  src={coverImage?.original || ""}
+                  layout="fill"
+                  objectFit="cover"
+                  quality={100}
+                />
+              )}
             </div>
             <Card.Meta
               className={styles.meta}
-              title={anime?.attributes?.canonicalTitle}
-              description={anime?.attributes?.synopsis}
+              title={canonicalTitle}
+              description={synopsis}
             />
 
             <Divider />
             <div className={styles.stats}>
-              <Statistic
-                title="Start date"
-                value={anime?.attributes?.startDate}
-              />
-              <Statistic
-                title="Status"
-                value={getCanonicalStatus(anime?.attributes?.status)}
-              />
-              <Statistic
-                title="Popularity Rank"
-                value={anime?.attributes?.popularityRank}
-              />
-              <Statistic
-                title="Average Rating"
-                value={anime?.attributes?.averageRating}
-              />
+              <Statistic title="Start date" value={startDate} />
+              <Statistic title="Status" value={getCanonicalStatus(status)} />
+              <Statistic title="Popularity Rank" value={popularityRank} />
+              <Statistic title="Average Rating" value={averageRating} />
 
-              <Statistic
-                title="Age Rating"
-                value={anime?.attributes?.ageRatingGuide}
-              />
+              <Statistic title="Age Rating" value={ageRatingGuide} />
             </div>
           </Card>
         </section>
