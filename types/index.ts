@@ -1,5 +1,6 @@
 export type IAnime = {
   attributes: {
+    description: string;
     createdAt: string;
     updatedAt: string;
     slug: string;

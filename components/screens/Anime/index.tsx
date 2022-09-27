@@ -11,25 +11,9 @@ import { api } from "../../../utils/api";
 
 import styles from "./Anime.module.scss";
 import Head from "next/head";
+import { IAnime } from "../../../types";
 
-const Anime: React.FC = () => {
-  const router = useRouter();
-  const [anime, setAnime] = React.useState<any>(null);
-  const { slug } = router.query;
-
-  const id = String(slug)?.split("-").pop();
-
-  const getAnimeById = async () => {
-    const { data } = await api.get(`anime/${id}`);
-    setAnime(data.data);
-  };
-
-  useEffect(() => {
-    if (id) {
-      getAnimeById();
-    }
-  }, [id]);
-
+const Anime = ({ anime }: { anime: IAnime }) => {
   const getCanonicalStatus = (status: string) => {
     switch (status) {
       case "current":
@@ -79,8 +63,8 @@ const Anime: React.FC = () => {
             </div>
             <Card.Meta
               className={styles.meta}
-              title={anime?.attributes.canonicalTitle}
-              description={anime?.attributes.synopsis}
+              title={anime?.attributes?.canonicalTitle}
+              description={anime?.attributes?.synopsis}
             />
 
             <Divider />
