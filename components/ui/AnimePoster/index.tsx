@@ -1,7 +1,10 @@
-import { Rate } from "antd";
+import React from "react";
+
+import { Rate, Typography } from "antd";
+const { Title } = Typography;
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+
 import { IAnime } from "../../../types";
 
 import styles from "./AnimePoster.module.scss";
@@ -31,8 +34,9 @@ export const AnimePoster = ({ data }: Props) => {
           quality={100}
           className={styles.posterImage}
         />
-        <h4>{canonicalTitle}</h4>
+        <Title level={4}>{canonicalTitle}</Title>
       </div>
+
       <Rate disabled value={(averageRating * 5) / 100} />
     </div>
   );

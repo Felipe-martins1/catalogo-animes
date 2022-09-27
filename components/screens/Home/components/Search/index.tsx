@@ -24,6 +24,8 @@ const Search = () => {
         allowClear
         placeholder="Find your favorite anime!"
         onSearch={handleSearch}
+        enterButton="Search"
+        className={styles.searchInput}
       />
 
       <section className={styles.results}>
