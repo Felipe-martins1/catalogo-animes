@@ -35,7 +35,7 @@ const Anime = ({ anime }: { anime: IAnime }) => {
     <React.Fragment>
       <Head>
         <title>{anime?.attributes?.canonicalTitle}</title>
-
+        <meta name="description" content={anime?.attributes?.description} />
         <meta name="og:description" content={anime?.attributes?.description} />
         <meta name="og:title" content={anime?.attributes?.canonicalTitle} />
         <meta name="og:image" content={anime?.attributes?.posterImage?.large} />
