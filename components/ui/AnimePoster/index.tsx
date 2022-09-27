@@ -44,7 +44,7 @@ export const AnimePoster = ({ data }: Props) => {
   };
 
   return (
-    <div>
+    <div className={styles.posterContainer}>
       <div
         className={styles.poster}
         onClick={() => router.push(`/anime/${slug}-${id}`)}
