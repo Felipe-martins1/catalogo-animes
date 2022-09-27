@@ -2,39 +2,38 @@ import { Rate } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import { IAnime } from "../../../types";
 
 import styles from "./AnimePoster.module.scss";
 
 type Props = {
-  data: {
-    slug: string;
-    url: string;
-    alt: string;
-    title: string;
-    rating: number;
-  };
+  data: IAnime;
 };
 
 export const AnimePoster = ({ data }: Props) => {
   const router = useRouter();
 
+  const { attributes, id } = data || {};
+
+  const { slug, canonicalTitle, posterImage, averageRating } = attributes || {};
+
   return (
     <div>
       <div
         className={styles.poster}
-        onClick={() => router.push(`/anime/${data.slug}`)}
+        onClick={() => router.push(`/anime/${slug}-${id}`)}
       >
         <Image
-          src={data.url}
-          alt={data.alt}
+          src={posterImage.small}
+          alt={canonicalTitle}
           width="200px"
           height={300}
           quality={100}
           className={styles.posterImage}
         />
-        <h4>{data.title}</h4>
+        <h4>{canonicalTitle}</h4>
       </div>
-      <Rate disabled value={(data.rating * 5) / 100} />
+      <Rate disabled value={(averageRating * 5) / 100} />
     </div>
   );
 };

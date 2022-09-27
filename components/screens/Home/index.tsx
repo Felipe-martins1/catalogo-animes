@@ -1,6 +1,5 @@
-import type { NextPage } from "next";
-
-import { Typography } from "antd";
+import React from "react";
+import Head from "next/head";
 
 import Layout from "../../layout";
 
@@ -8,16 +7,11 @@ import Hero from "./components/Hero";
 import Search from "./components/Search";
 import AnimeList from "../../ui/AnimeList";
 
-import { useTrending } from "../../../hooks/useTrending";
+import { IAnime } from "../../../types";
 
 import styles from "./Home.module.scss";
-import { findTrendingAnimes } from "../../../services/animeService";
-import React from "react";
-import Head from "next/head";
 
-const Home: NextPage = () => {
-  const { loading: loadingAnimes, data: trendingAnimes } = useTrending();
-
+const Home = ({ trending }: { trending: IAnime[] }) => {
   return (
     <React.Fragment>
       <Head>
@@ -25,21 +19,21 @@ const Home: NextPage = () => {
 
         <meta name="og:description" content="Find your animes in one place!" />
         <meta name="og:title" content="Anime List" />
+        <meta
+          name="og:image"
+          content={trending[0]?.attributes?.posterImage?.small}
+        />
       </Head>
       <Layout>
         <Hero
           anime={{
-            url: trendingAnimes[0]?.attributes?.coverImage?.large,
-            alt: trendingAnimes[0]?.attributes?.canonicalTitle,
-            title: trendingAnimes[0]?.attributes?.canonicalTitle,
+            url: trending[0]?.attributes?.coverImage?.large,
+            alt: trending[0]?.attributes?.canonicalTitle,
+            title: trending[0]?.attributes?.canonicalTitle,
           }}
         />
         <section className={styles.listsContainer}>
-          <AnimeList
-            title="Trending Animes"
-            items={trendingAnimes}
-            loading={loadingAnimes}
-          />
+          <AnimeList title="Trending Animes" items={trending} />
         </section>
         <Search />
       </Layout>

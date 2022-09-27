@@ -1,4 +1,5 @@
 export type IAnime = {
+  id: string;
   attributes: {
     description: string;
     createdAt: string;
@@ -13,7 +14,7 @@ export type IAnime = {
     };
     canonicalTitle: string;
     abbreviatedTitles: string[];
-    averageRating: string;
+    averageRating: number;
     ratingFrequencies: unknown;
     userCount: number;
     favoritesCount: number;
