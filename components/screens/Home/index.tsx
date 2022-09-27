@@ -12,6 +12,9 @@ import { IAnime } from "../../../types";
 import styles from "./Home.module.scss";
 
 const Home = ({ trending }: { trending: IAnime[] }) => {
+  const randomTrendingItem =
+    trending[Math.floor(Math.random() * trending.length)];
+
   return (
     <React.Fragment>
       <Head>
@@ -21,15 +24,15 @@ const Home = ({ trending }: { trending: IAnime[] }) => {
         <meta name="og:title" content="Anime List" />
         <meta
           name="og:image"
-          content={trending[0]?.attributes?.posterImage?.small}
+          content={randomTrendingItem?.attributes?.posterImage?.small}
         />
       </Head>
       <Layout>
         <Hero
           anime={{
-            url: trending[0]?.attributes?.coverImage?.large,
-            alt: trending[0]?.attributes?.canonicalTitle,
-            title: trending[0]?.attributes?.canonicalTitle,
+            url: randomTrendingItem?.attributes?.coverImage?.large,
+            alt: randomTrendingItem?.attributes?.canonicalTitle,
+            title: randomTrendingItem?.attributes?.canonicalTitle,
           }}
         />
         <section className={styles.listsContainer}>
