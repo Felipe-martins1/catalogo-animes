@@ -14,6 +14,8 @@ import Head from "next/head";
 import { IAnime } from "../../../types";
 
 const Anime = ({ anime }: { anime: IAnime }) => {
+  console.log(anime);
+
   const getCanonicalStatus = (status: string) => {
     switch (status) {
       case "current":
@@ -31,7 +33,7 @@ const Anime = ({ anime }: { anime: IAnime }) => {
     }
   };
 
-  const { attributes, id } = anime || {};
+  const { attributes } = anime || {};
   const {
     description,
     canonicalTitle,
