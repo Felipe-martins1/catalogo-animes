@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { api } from "../../../utils/api";
 
 import styles from "./Anime.module.scss";
+import Head from "next/head";
 
 const Anime: React.FC = () => {
   const router = useRouter();
@@ -24,8 +25,10 @@ const Anime: React.FC = () => {
   };
 
   useEffect(() => {
-    getAnimeById();
-  }, []);
+    if (id) {
+      getAnimeById();
+    }
+  }, [id]);
 
   const getCanonicalStatus = (status: string) => {
     switch (status) {
@@ -45,59 +48,69 @@ const Anime: React.FC = () => {
   };
 
   return (
-    <Layout>
-      <Breadcrumb>
-        <Breadcrumb.Item>
-          <Link href="/">Home</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Anime</Breadcrumb.Item>
-        <Breadcrumb.Item>{anime?.attributes?.canonicalTitle}</Breadcrumb.Item>
-      </Breadcrumb>
+    <React.Fragment>
+      <Head>
+        <title>{anime?.attributes?.canonicalTitle}</title>
 
-      <section className={styles.cardContainer}>
-        <Card hoverable>
-          <div className={styles.banner}>
-            <Image
-              alt={anime?.attributes?.canonicalTitle}
-              src={anime?.attributes?.coverImage?.original}
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-            />
-          </div>
-          <Card.Meta
-            className={styles.meta}
-            title={anime?.attributes.canonicalTitle}
-            description={anime?.attributes.synopsis}
-          />
+        <meta name="og:description" content={anime?.attributes?.description} />
+        <meta name="og:title" content={anime?.attributes?.canonicalTitle} />
+        <meta name="og:image" content={anime?.attributes?.posterImage?.large} />
+      </Head>
 
-          <Divider />
-          <div className={styles.stats}>
-            <Statistic
-              title="Start date"
-              value={anime?.attributes?.startDate}
-            />
-            <Statistic
-              title="Status"
-              value={getCanonicalStatus(anime?.attributes?.status)}
-            />
-            <Statistic
-              title="Popularity Rank"
-              value={anime?.attributes?.popularityRank}
-            />
-            <Statistic
-              title="Average Rating"
-              value={anime?.attributes?.averageRating}
+      <Layout>
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link href="/">Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Anime</Breadcrumb.Item>
+          <Breadcrumb.Item>{anime?.attributes?.canonicalTitle}</Breadcrumb.Item>
+        </Breadcrumb>
+
+        <section className={styles.cardContainer}>
+          <Card hoverable>
+            <div className={styles.banner}>
+              <Image
+                alt={anime?.attributes?.canonicalTitle}
+                src={anime?.attributes?.coverImage?.original || ""}
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+              />
+            </div>
+            <Card.Meta
+              className={styles.meta}
+              title={anime?.attributes.canonicalTitle}
+              description={anime?.attributes.synopsis}
             />
 
-            <Statistic
-              title="Age Rating"
-              value={anime?.attributes?.ageRatingGuide}
-            />
-          </div>
-        </Card>
-      </section>
-    </Layout>
+            <Divider />
+            <div className={styles.stats}>
+              <Statistic
+                title="Start date"
+                value={anime?.attributes?.startDate}
+              />
+              <Statistic
+                title="Status"
+                value={getCanonicalStatus(anime?.attributes?.status)}
+              />
+              <Statistic
+                title="Popularity Rank"
+                value={anime?.attributes?.popularityRank}
+              />
+              <Statistic
+                title="Average Rating"
+                value={anime?.attributes?.averageRating}
+              />
+
+              <Statistic
+                title="Age Rating"
+                value={anime?.attributes?.ageRatingGuide}
+              />
+            </div>
+          </Card>
+        </section>
+      </Layout>
+    </React.Fragment>
   );
 };
 
