@@ -1,105 +1,45 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
 
-import Layout from '../../layout';
-import { Button, Carousel, Input, Typography } from 'antd';
+import Layout from "../../layout";
 
-import styles from './Home.module.scss'
-import { useTrendingAnimes } from '../../../hooks/useTrendingAnimes';
-import { useCategories } from '../../../hooks/useCategories';
+import Hero from "./components/Hero";
+import AnimeList from "../../ui/AnimeList";
 
-const { Title, Paragraph, Text } = Typography;
+import { useTrending } from "../../../hooks/useTrending";
+
+import styles from "./Home.module.scss";
 
 const Home: NextPage = () => {
-    const trendintAnimes = useTrendingAnimes()
-    const categories = useCategories();
-    console.log(categories);
+  const fetchedTrendingAnimes = useTrending({ type: "anime" });
+  const fethecTrendingMangas = useTrending({ type: "manga" });
 
-    const posters = trendintAnimes.map((anime) => {
-        return anime.attributes.posterImage.original
-    });
+  const trendingAnimesItemList = fetchedTrendingAnimes.map((each) => ({
+    url: each.attributes.posterImage.small,
+    alt: each.attributes.canonicalTitle,
+    title: each.attributes.canonicalTitle,
+  }));
 
-    return (
+  const trendingMangasItemList = fethecTrendingMangas.map((each) => ({
+    url: each.attributes.posterImage.small,
+    alt: each.attributes.canonicalTitle,
+    title: each.attributes.canonicalTitle,
+  }));
+
+  return (
     <Layout>
-        <section className={styles.hero}>
-            <section className={styles.posters}>
-                {posters.map((poster) => {
-                    return <img src={poster} alt="poster" className={styles.poster} />
-                })}
-            </section>
-            <section className={styles.right}>
-                <Paragraph >
-                    ANIMELIST
-                </Paragraph>
-                <Title >
-                    The best place to find your favorite anime
-                </Title>
-                <Paragraph >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Sed euismod, nunc ut aliquam aliquam, nunc nisl aliquet nisl,
-                    vitae aliquet nisl nunc nec elit. Sed euismod, nunc ut aliquam
-                    aliquam, nunc nisl aliquet nisl, vitae aliquet nisl nunc nec elit.
-                </Paragraph>
-            </section>
-        </section>
-        
-
-        <Title style={{color: 'white'}}>
-            Trending Animes
-        </Title>
-
-        <section className={styles.trendingAnimes}>
-            {trendintAnimes.map((anime) => {
-                return (
-                    <section className={styles.anime}>
-                        <h4>{anime.attributes.canonicalTitle}</h4>
-                        <img src={anime.attributes.posterImage.original} alt="poster" className={styles.poster} />
-                    </section>
-                )
-            })}
-        </section>
-
-        <Title style={{color: 'white'}}>
-            Categories
-        </Title>
-
-        <section className={styles.categories}>
-            {categories.map((category) => {
-                return (
-                    <Button>
-                        {category.attributes.title}
-                    </Button>
-                )
-            })}
-        </section>
+      <Hero
+        anime={{
+          url: fetchedTrendingAnimes[0]?.attributes.coverImage.large,
+          alt: fetchedTrendingAnimes[0]?.attributes.canonicalTitle,
+          title: fetchedTrendingAnimes[0]?.attributes.canonicalTitle,
+        }}
+      />
+      <section className={styles.listsContainer}>
+        <AnimeList title="Trending Animes" items={trendingAnimesItemList} />
+        <AnimeList title="Trending Mangas" items={trendingMangasItemList} />
+      </section>
     </Layout>
-)
-}
+  );
+};
 
-const sliderResponsiveSettings = [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            initialSlide: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-      ];
-
-export default Home
+export default Home;
