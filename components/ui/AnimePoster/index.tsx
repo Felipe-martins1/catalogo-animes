@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Rate, Typography } from "antd";
+import { Rate, Statistic, Typography } from "antd";
 const { Title } = Typography;
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -18,7 +18,30 @@ export const AnimePoster = ({ data }: Props) => {
 
   const { attributes, id } = data || {};
 
-  const { slug, canonicalTitle, posterImage, averageRating } = attributes || {};
+  const {
+    slug,
+    canonicalTitle,
+    posterImage,
+    averageRating,
+    episodeCount,
+    episodeLength = 0,
+    totalLength = 0,
+  } = attributes || {};
+
+  const getEpisodeCount = () => {
+    let count;
+    let title = "Episode";
+
+    if (episodeCount) {
+      count = episodeCount;
+    } else {
+      count = Math.round(totalLength / episodeLength);
+    }
+
+    if (count > 1 || !count) title = title.concat("s");
+
+    return `${count || "??"} ${title}`;
+  };
 
   return (
     <div>
@@ -36,7 +59,7 @@ export const AnimePoster = ({ data }: Props) => {
         />
         <Title level={4}>{canonicalTitle}</Title>
       </div>
-
+      <Title level={5}>{getEpisodeCount()}</Title>
       <Rate disabled value={(averageRating * 5) / 100} />
     </div>
   );
