@@ -4,8 +4,7 @@ import { Layout as AntdLayout, Menu, Typography } from "antd";
 
 import styles from "./Layout.module.scss";
 
-const { Header, Footer, Sider, Content } = AntdLayout;
-const { Title } = Typography;
+const { Content } = AntdLayout;
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

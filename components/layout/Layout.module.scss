@@ -1,22 +1,6 @@
 .layout {
   background-color: transparent;
 
-  .header {
-    background-color: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-    display: flex;
-    align-items: center;
-
-    height: 100px;
-
-    .content {
-      max-width: 1440px;
-      margin: 0 auto;
-      width: 100%;
-    }
-  }
-
   .content {
     padding: 32px 16px;
     max-width: 1440px;

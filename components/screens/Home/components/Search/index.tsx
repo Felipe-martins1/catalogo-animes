@@ -22,6 +22,7 @@ const Search = () => {
       <Input.Search
         size="large"
         allowClear
+        bordered={false}
         placeholder="Find your favorite anime!"
         onSearch={handleSearch}
         enterButton="Search"

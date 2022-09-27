@@ -12,7 +12,6 @@ export const useAnimes = () => {
     setLoading(true);
     try {
       const response = await findAllAnimes(params);
-      console.log(response);
       setData(response.data || []);
       setNext(response.links.next);
     } catch (error) {
