@@ -18,10 +18,10 @@ const Home = ({ trending }: { trending: IAnime[] }) => {
   return (
     <React.Fragment>
       <Head>
-        <title>Anime List</title>
+        <title>Anime Lobby</title>
         <meta name="description" content="Find your animes in one place!" />
         <meta name="og:description" content="Find your animes in one place!" />
-        <meta name="og:title" content="Anime List" />
+        <meta name="og:title" content="Anime Lobby" />
         <meta
           name="og:image"
           content={randomTrendingItem?.attributes?.posterImage?.small}
