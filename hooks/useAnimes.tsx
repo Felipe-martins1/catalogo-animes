@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { findAllAnimes } from "../services/animeService";
-import { api } from "../utils/api";
 
 export const useAnimes = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any[]>([]);
   const [next, setNext] = useState<string | null>(null);
 
-  const fetchAnimes = async (params?: any) => {
+  const fetchAnimes = async (params?: any, nextLink?: string | null) => {
     if (loading) return;
     setLoading(true);
     try {
-      const response = await findAllAnimes(params);
-      setData(response.data || []);
+      const response = await findAllAnimes(params, nextLink);
+      if (nextLink) {
+        setData((prev) => [...prev, ...response.data]);
+      } else {
+        setData(response.data);
+      }
       setNext(response.links.next);
     } catch (error) {
       console.error(error);
@@ -22,17 +25,7 @@ export const useAnimes = () => {
   };
 
   const fetchMoreAnimes = async () => {
-    if (loading) return;
-    setLoading(true);
-    try {
-      const { data } = await api.get(String(next));
-      setData((prev) => [...prev, ...data.data]);
-      setNext(data.links.next);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    await fetchAnimes(null, next);
   };
 
   useEffect(() => {
