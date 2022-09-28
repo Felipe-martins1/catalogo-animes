@@ -93,12 +93,23 @@ const Anime = ({ anime }: { anime: IAnime }) => {
 
             <Divider />
             <div className={styles.stats}>
-              <Statistic title="Start date" value={startDate} />
-              <Statistic title="Status" value={getCanonicalStatus(status)} />
-              <Statistic title="Popularity Rank" value={popularityRank} />
-              <Statistic title="Average Rating" value={averageRating} />
+              {startDate && <Statistic title="Start date" value={startDate} />}
 
-              <Statistic title="Age Rating" value={ageRatingGuide} />
+              {status && (
+                <Statistic title="Status" value={getCanonicalStatus(status)} />
+              )}
+
+              {popularityRank && (
+                <Statistic title="Popularity Rank" value={popularityRank} />
+              )}
+
+              {averageRating && (
+                <Statistic title="Average Rating" value={averageRating} />
+              )}
+
+              {ageRatingGuide && (
+                <Statistic title="Age Rating" value={ageRatingGuide} />
+              )}
             </div>
           </Card>
         </section>
