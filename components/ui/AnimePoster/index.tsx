@@ -43,12 +43,13 @@ export const AnimePoster = ({ data }: Props) => {
     return `${count || "??"} ${title}`;
   };
 
+  const handlePosterClick = () => {
+    router.push(`/anime/${slug}-${id}`);
+  };
+
   return (
     <div className={styles.posterContainer}>
-      <div
-        className={styles.poster}
-        onClick={() => router.push(`/anime/${slug}-${id}`)}
-      >
+      <div className={styles.poster} onClick={handlePosterClick}>
         <Image
           src={posterImage.small}
           alt={canonicalTitle}
