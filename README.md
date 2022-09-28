@@ -11,7 +11,7 @@ yarn dev
 
 ## Abordagem de desenvolvimento
 
-Neste projeto busco mostrar alguns conceitos básicos de SEO, portanto alguns conceitos foram utilizados, como a utilização de meta tags [The Open Graph Protocol](https://ogp.me/), melhoria nas urls de busca(ao selecionar um anime, a tag engloba tanto o slug quanto o id).
+Neste projeto busco mostrar alguns conceitos básicos de SEO, portanto alguns conceitos foram utilizados, como SSR(Server side rendering), a utilização de meta tags [The Open Graph Protocol](https://ogp.me/), melhoria nas urls de busca(ao selecionar um anime, a tag engloba tanto o slug quanto o id).
 
 A Página inicial foi pensada para mostrar em destaque os animes que estão em alta, dessa forma, além das chances do usuário se interessar e continuar no site serem maiores, também ajuda na otimização da pesquisa, já que muitas palavras chaves de animes famosos estarão ali, mas, caso o usuário não encontre o que deseja, a página possui um campo de pesquisa e uma lista paginada de animes.
 
