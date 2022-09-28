@@ -7,6 +7,8 @@ yarn
 yarn dev
 ```
 
+## [Projeto no ar](https://catalogo-animes.vercel.app)
+
 ## Abordagem de desenvolvimento
 
 Neste projeto busco mostrar alguns conceitos básicos de SEO, portanto alguns conceitos foram utilizados, como a utilização de meta tags [The Open Graph Protocol](https://ogp.me/), melhoria nas urls de busca(ao selecionar um anime, a tag engloba tanto o slug quanto o id).
